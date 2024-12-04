@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../core/services/auth/login.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
       password: ['', [Validators.required]]
     }); 
 
-  constructor (private router: Router) {}
+  constructor (private router: Router, private loginService: LoginService) {}
 
   get email () {
     return this.loginForm.controls.email;
@@ -32,7 +33,7 @@ export class LoginComponent {
     
   login (){
     if (this.loginForm.valid){
-      console.log("Se puede iniciar Sesión Correctamente");
+      this.loginService.login(this.loginForm.value);
       this.router.navigate(['/']);
       this.loginForm.reset();
     }
