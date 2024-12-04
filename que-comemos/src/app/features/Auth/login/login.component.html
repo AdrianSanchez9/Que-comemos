@@ -1,1 +1,18 @@
-<p>login works!</p>
+<form [formGroup]="loginForm">
+    <div class="form-group">
+      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su Email">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+        <div *ngIf="email.hasError('required')"> Email Requerido. </div>
+        <div *ngIf="email.hasError('email')"> Debe ser formato Email. </div>
+      </div>
+  </div>
+    <div class="form-group">
+      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Ingrese su contraseña">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+        <div *ngIf="password.hasError('required')"> Contraseña Requerido. </div>
+      </div>
+    </div>
+
+    
+    <button type="submit" class="btn btn-primary" (click)="login()">Iniciar Sesion</button>
+</form>
