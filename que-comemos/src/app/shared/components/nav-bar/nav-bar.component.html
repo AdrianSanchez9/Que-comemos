@@ -6,8 +6,15 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-          <a class="nav-link active" href="#">Iniciar Sesión</a>
+          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Inicio</a>
+          <div *ngIf="!userLogin">
+            <a class="nav-link active" [routerLink]="['/login']">Iniciar Sesión</a>
+            <a class="nav-link active" href="#">Registrarse</a>
+          </div>
+          <div *ngIf="userLogin">
+            <a class="nav-link active" href="#">Mis Recetas</a>
+            <a class="nav-link active" href="#" (click)="logout()">Cerrar Sesión</a>
+          </div>
         </div>
       </div>
     </div>
