@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../core/services/auth/login.service';
+import { LoginRequest } from '../../../core/services/auth/loginRequest';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ import { LoginService } from '../../../core/services/auth/login.service';
 })
 export class LoginComponent {
   
+  loginError : string = "";
+
   private formBuilder = inject(FormBuilder);
 
    loginForm =  this.formBuilder.group({
@@ -25,7 +28,6 @@ export class LoginComponent {
   get email () {
     return this.loginForm.controls.email;
   }
-
   
   get password () {
     return this.loginForm.controls.password;
@@ -33,9 +35,20 @@ export class LoginComponent {
     
   login (){
     if (this.loginForm.valid){
-      this.loginService.login(this.loginForm.value);
-      this.router.navigate(['/']);
-      this.loginForm.reset();
+      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          this.loginError = error;
+          console.error(error);
+        },
+        complete: () => {
+          console.info('Complete');
+          this.router.navigate(['/']);
+          this.loginForm.reset();
+        }
+      })
     }
     else{
       this.loginForm.markAllAsTouched();
