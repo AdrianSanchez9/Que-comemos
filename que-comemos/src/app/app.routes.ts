@@ -7,5 +7,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/Auth/auth.routes').
         then(m => m.AUTH_ROUTES)
   },
+  { 
+    path: 'menu', 
+    loadChildren: () => import('./features/articles/articles.routes').
+        then(m => m.MENU_ROUTES)
+  },
 ];
 
