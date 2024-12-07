@@ -4,12 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuService } from '../../../core/services/articles/menu.service';
 import { MenuRequest } from '../../../core/services/articles/menuRequest';
+import { MenuItemComponent } from '../menu-item/menu-item.component';
 
 @Component({
   selector: 'app-menu',
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    MenuItemComponent
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
@@ -24,6 +26,12 @@ export class MenuComponent {
     nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
     precio: ['', [Validators.required]],
     tipoMenu: ['Vegetariano'],
+    comidas: this.formBuilder.group({
+      entrada : [null],
+      platoPrincipal : [null],
+      bebida : [],
+      postre : []
+    }) 
   });
 
   constructor (private menuService : MenuService){ }
@@ -53,5 +61,10 @@ export class MenuComponent {
       })
     }
   }
+
+  onComidaSeleccionada(event: any): void {
+    
+  }
+
 
 }
