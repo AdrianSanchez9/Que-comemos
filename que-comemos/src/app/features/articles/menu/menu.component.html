@@ -34,7 +34,9 @@
 
           <h5> Selecciona las comidas del menu: </h5>
 
-          <app-menu-item></app-menu-item>
+          <app-menu-item  (idsComidasSeleccionas)="numeroSeleccionado($event)" />
+
+          <p class="text-danger text-error">{{ menuError }}</p>
 
           <button type="submit" class="btn btn-primary" id="input-submit" (click)="createMenu()"> Registrar </button>
           

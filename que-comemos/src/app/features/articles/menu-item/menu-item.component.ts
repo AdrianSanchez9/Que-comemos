@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItemResponse } from '../../../core/services/articles/menuItemResponse';
 import { Output,EventEmitter } from '@angular/core';
+import { Validators,FormBuilder  } from '@angular/forms';
 
 @Component({
   selector: 'app-menu-item',
@@ -12,12 +13,23 @@ import { Output,EventEmitter } from '@angular/core';
 })
 export class MenuItemComponent implements OnInit {
 
-  @Output() idsComidasSeleccionas = new EventEmitter<any>();
+  @Output() idsComidasSeleccionas =  new EventEmitter<number[]>();
+
+  private formBuilder = inject(FormBuilder);
 
   entrada : MenuItemResponse[] = [];
   platoPrincipal : MenuItemResponse []= [];
   bebida : MenuItemResponse[] = [];
   postre : MenuItemResponse[] = [];
+
+  seleccionados : number[] = [];
+
+  comidasForm = this.formBuilder.group({
+    entrada : [Validators.required],
+    platoPrincipal : [Validators.required],
+    bebida : [Validators.required],
+    postre : [Validators.required]
+  });
 
   constructor (private menuItemService : MenuItemService){ }
 
@@ -25,6 +37,7 @@ export class MenuItemComponent implements OnInit {
     this.getMenuItems();
   }
 
+  // Se obtiene las comidas del servicio y se filtran por tipo.
   getMenuItems() : void{
     this.menuItemService.getMenuItems().subscribe({
       next: (response) => {
@@ -43,10 +56,17 @@ export class MenuItemComponent implements OnInit {
     });
   }
 
-  comidaSeleccionada (event : Event , tipo : string) : void {
-    const idsComidas = (event.target as unknown as HTMLInputElement).value.split(',').map(Number);
-    this.idsComidasSeleccionas.emit({ tipo, id: Number(idsComidas) || null });
+   // Se van guardando los id de las comidas seleccionadas y es emitido.
+   numeroSeleccionado(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const comidaId = Number(selectElement.value);  
 
+    if (!isNaN(comidaId)) {
+      this.seleccionados.push(comidaId);  
+      this.idsComidasSeleccionas.emit(this.seleccionados); 
+    }
   }
+
+  
 
 }

@@ -13,6 +13,7 @@ export class MenuService {
   constructor(private http : HttpClient) { }
 
   createMenu (credentials:any){
+    console.log (credentials)
     return this.http.post<any>(this.URL, credentials).pipe(
       catchError(this.handleError)
     );
