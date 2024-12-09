@@ -4,5 +4,6 @@ import { MenuItemComponent } from './menu-item/menu-item.component';
 
 export const MENU_ROUTES: Routes = [
     { path: 'registrar' , component: MenuComponent },
-    { path: 'ver' , component: MenuItemComponent }
+    { path: 'editar/:id' , component: MenuComponent },
+    //{ path: 'ver' , component: MenuItemComponent }
 ];

@@ -1,9 +1,9 @@
 <div class="default-container">
-    <h2> Crear Nuevo Menu </h2>
+    <h2>{{ isModeEdit ? 'Editar Menú' : 'Crear Nuevo Menú' }}</h2>
     <form [formGroup]="menuForm">
         <div class="form-group">
           <label for="exampleFormControlInput1">Ingrese Nombre del Menu</label>
-          <input type="text" class="form-control" id="inputs-text" formControlName="nombre">
+          <input type="text" class="form-control"  >
           <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger">
             <div *ngIf="nombre.hasError('required')"> Nombre Requerido. </div>
             <div *ngIf="nombre.hasError('pattern')"> No se permite Numeros ni caracteres Especiales. </div>
@@ -34,11 +34,11 @@
 
           <h5> Selecciona las comidas del menu: </h5>
 
-          <app-menu-item  (idsComidasSeleccionas)="numeroSeleccionado($event)" />
+          <app-menu-item  [idMenu]="idMenu" (idsComidasSeleccionas)="numeroSeleccionado($event)" />
 
           <p class="text-danger text-error">{{ menuError }}</p>
 
-          <button type="submit" class="btn btn-primary" id="input-submit" (click)="createMenu()"> Registrar </button>
+          <button type="submit" class="btn btn-primary" id="input-submit" (click)="sendMenu()">{{ isModeEdit ? 'Guardar' : 'Registrar' }} </button>
           
       </form>
 

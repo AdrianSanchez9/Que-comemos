@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormArray } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuService } from '../../../core/services/articles/menu.service';
 import { MenuRequest } from '../../../core/services/articles/menuRequest';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap ,Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -17,9 +17,12 @@ import { Router } from '@angular/router';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
-export class MenuComponent {
-
+export class MenuComponent implements OnInit {
+  
   menuError : string = "";
+
+  idMenu! : number;
+  isModeEdit : boolean = false;
 
   private formBuilder = inject(FormBuilder);
 
@@ -30,7 +33,18 @@ export class MenuComponent {
     comidas : this.formBuilder.array([], [Validators.required]),
   });
 
-  constructor (private menuService : MenuService, private router : Router){ }
+  constructor (private menuService : MenuService, private router : Router, private activatedRoute : ActivatedRoute){ }
+
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      this.idMenu = Number(params.get('id'));
+
+      if(this.idMenu !== 0 ){ 
+        this.isModeEdit = true;
+        this.updateMode();
+      }
+    });
+  }
 
   get nombre () {
     return this.menuForm.controls.nombre;
@@ -40,7 +54,46 @@ export class MenuComponent {
     return this.menuForm.controls.precio;
   }
 
-  createMenu () {
+  updateMode () {
+    // Llamo al servicio para obtener todos los datos del menu.
+    this.menuService.getMenuById(this.idMenu!).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.menuForm.patchValue({
+          nombre : response.nombre,
+          precio : response.precio,
+          tipoMenu : response.tipoMenu
+        });
+      },
+      error: (error) => {
+        this.menuError = error;
+        console.error(error);
+      },
+      complete: () => {
+        console.info('Complete');
+      }
+    })
+  }
+
+  private handleMenu(request: Observable<any>):void {
+    request.subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (error) => {
+        this.menuError = error;
+        console.error(error);
+      },
+      complete: () => {
+        console.info('Complete');
+        this.router.navigate(['/']);
+        this.menuForm.reset();
+      }
+    });
+  } 
+
+
+  sendMenu () {
     if (this.menuForm.valid && this.validarTodasComidas()) {
       const enviarMenu = {
         menu : {
@@ -51,21 +104,12 @@ export class MenuComponent {
         comidas : this.menuForm.value.comidas
       }
 
-
-      this.menuService.createMenu(enviarMenu).subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (error) => {
-          this.menuError = error;
-          console.error(error);
-        },
-        complete: () => {
-          console.info('Complete');
-          this.router.navigate(['/']);
-          this.menuForm.reset();
-        }
-      })
+      if (this.isModeEdit){
+        this.handleMenu(this.menuService.updateMenu(this.idMenu!, enviarMenu));
+      }  
+      else {
+        this.handleMenu(this.menuService.createMenu(enviarMenu));
+      }
     }
     else{
       this.menuError = "Deben completar todos los campos";

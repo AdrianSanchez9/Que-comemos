@@ -1,5 +1,5 @@
 import { MenuItemService } from '../../../core/services/articles/menu-item.service';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItemResponse } from '../../../core/services/articles/menuItemResponse';
 import { Output,EventEmitter } from '@angular/core';
@@ -14,6 +14,7 @@ import { Validators,FormBuilder  } from '@angular/forms';
 export class MenuItemComponent implements OnInit {
 
   @Output() idsComidasSeleccionas =  new EventEmitter<number[]>();
+  @Input() idMenu : number = 0;
 
   private formBuilder = inject(FormBuilder);
 
@@ -23,6 +24,8 @@ export class MenuItemComponent implements OnInit {
   postre : MenuItemResponse[] = [];
 
   seleccionados : number[] = [];
+
+  idsComidasAsociadas : number[] = [];
 
   comidasForm = this.formBuilder.group({
     entrada : [Validators.required],
@@ -35,6 +38,9 @@ export class MenuItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMenuItems();
+    if (this.idMenu != 0){
+      this.getComidasAsociadasAMenu(this.idMenu);
+    }
   }
 
   // Se obtiene las comidas del servicio y se filtran por tipo.
@@ -56,15 +62,36 @@ export class MenuItemComponent implements OnInit {
     });
   }
 
+  getComidasAsociadasAMenu(idMenu : number) : void{
+    this.menuItemService.getComidasAsociadasAMenu(idMenu).subscribe({
+      next: (response) => {
+        this.idsComidasAsociadas = response.map((item:MenuItemResponse) => item.id);
+        
+        this.seleccionados = this.idsComidasAsociadas;
+        
+        this.idsComidasSeleccionas.emit(this.seleccionados);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => {
+        console.info('Complete');
+      },
+    });
+  }
+
    // Se van guardando los id de las comidas seleccionadas y es emitido.
    numeroSeleccionado(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
-    const comidaId = Number(selectElement.value);  
+    const selectedValue = selectElement.value;
+  
+    const [id, index] = selectedValue.split('-').map(Number);
 
-    if (!isNaN(comidaId)) {
-      this.seleccionados.push(comidaId);  
-      this.idsComidasSeleccionas.emit(this.seleccionados); 
+    if (!isNaN(id)) {
+      this.seleccionados[index] = id; 
+      this.idsComidasSeleccionas.emit(this.seleccionados);
     }
+    
   }
 
   

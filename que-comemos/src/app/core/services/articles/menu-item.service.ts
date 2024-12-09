@@ -24,4 +24,17 @@ export class MenuItemService {
     )
   }
 
+  getComidasAsociadasAMenu(idMenu : number): Observable<MenuItemResponse[]>{
+    const URLComidasAsociadas = `${this.URL}${idMenu}`;
+    return this.http.get<MenuItemResponse[]>(URLComidasAsociadas).pipe(
+      map(response => 
+        response.map(item => ({
+            id: item.id,
+            nombre: item.nombre,
+            tipo: item.tipo,
+        }))
+      )
+    )
+  }
+
 }
