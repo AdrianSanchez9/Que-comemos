@@ -2,6 +2,14 @@ section {
     height: 100vh;
 }
 
+.ng-invalid:not(form).ng-touched{
+    border-left: 3px solid red;
+  }
+  
+  .ng-valid:not(form).ng-touched{
+      border-left: 3px solid green;
+    }
+
 .form-group {
     margin: 10px
 }

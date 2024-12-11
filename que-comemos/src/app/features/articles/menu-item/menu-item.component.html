@@ -1,0 +1,41 @@
+
+
+<div>
+  <label >Seleccione La Entrada </label>
+  <select class="form-select" aria-label="Default select example" (click)="numeroSeleccionado($event)">
+      <option selected>Elige la Entrada</option>
+      <option 
+      *ngFor="let item of entrada" 
+      [value]="item.id + '-' + 0 "
+      [selected] ="idsComidasAsociadas.includes(item.id)"
+      >  
+      {{item.nombre}}
+    
+    </option>
+    </select>
+</div>
+
+<div>
+  <label >Seleccione el Plato Principal </label>
+  <select class="form-select" aria-label="Default select example" (click)="numeroSeleccionado($event)">
+      <option selected>Elige El Plato Principal</option>
+      <option *ngFor="let item of platoPrincipal" [value]="item.id + '-' + 1 " [selected] ="idsComidasAsociadas.includes(item.id)">{{item.nombre}}</option>
+    </select>
+</div>
+
+<div>
+  <label >Seleccione el Postre </label>
+  <select class="form-select" aria-label="Default select example" (click)="numeroSeleccionado($event)">
+      <option selected>Elige el postre</option>
+      <option *ngFor="let item of postre" [value]="item.id + '-' + 2" [selected] ="idsComidasAsociadas.includes(item.id)">{{item.nombre}}</option>
+    </select>
+</div>
+
+
+<div>
+  <label >Seleccione la Bebida </label>
+  <select class="form-select" aria-label="Default select example" (change)="numeroSeleccionado($event)">
+      <option selected>Elige la Bebida</option>
+      <option  *ngFor="let item of bebida" [value]="item.id + '-' + 3 " [selected] ="idsComidasAsociadas.includes(item.id)">{{item.nombre}}</option>
+    </select>
+</div>

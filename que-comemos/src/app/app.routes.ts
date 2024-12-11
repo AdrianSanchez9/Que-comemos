@@ -13,7 +13,12 @@ export const routes: Routes = [
     path: 'registro',
     loadChildren: () => import('./features/registro/registro.routes').
         then(m => m.REGISTRO_ROUTES)
-  }
+  },
+  { 
+    path: 'menu', 
+    loadChildren: () => import('./features/articles/articles.routes').
+        then(m => m.MENU_ROUTES)
+  },
 ];
 
 
