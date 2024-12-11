@@ -1,4 +1,6 @@
-
+section {
+    height: 100vh;
+}
 
 .form-group {
     margin: 10px
