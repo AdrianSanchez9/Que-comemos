@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ComidaServiceService } from '../../../core/services/articles/comida-service.service';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,9 +21,7 @@ export class ComidaComponent {
 
   private formBuilder = inject(FormBuilder);
 
-  constructor (private comidaService : ComidaServiceService) {
-
-  }
+  constructor (private comidaService : ComidaServiceService , private router: Router) { }
 
   comidaForm = this.formBuilder.group({
     nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
@@ -43,6 +41,7 @@ export class ComidaComponent {
         },
         complete: () => {
           console.info('Complete');
+          this.router.navigate(['/']);
           this.comidaForm.reset();
         }
       });
