@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
     nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
     precio: ['', [Validators.required]],
     tipoMenu: ['Vegetariano'],
-    comidas : this.formBuilder.array([], [Validators.required]),
+    comidas : this.formBuilder.array([]),
   });
 
   constructor (private menuService : MenuService, private router : Router, private activatedRoute : ActivatedRoute){ }
@@ -94,6 +94,7 @@ export class MenuComponent implements OnInit {
 
 
   sendMenu () {
+    console.log ("Menu Form" , this.menuForm.valid);
     if (this.menuForm.valid && this.validarTodasComidas()) {
       const enviarMenu = {
         menu : {

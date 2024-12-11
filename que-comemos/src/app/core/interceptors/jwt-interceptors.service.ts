@@ -6,25 +6,24 @@ import { LoginService } from '../services/auth/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class JwtInterceptorsService implements HttpInterceptor{
 
-  constructor(private loginService : LoginService) { }
 
-  intercept (req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    let token:String = this.loginService.userToken;
+export class JwtInterceptorsService implements HttpInterceptor {
+  constructor(private loginService: LoginService) {}
 
-    if (token){
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token: String = this.loginService.userToken;
+    console.log('Adding token:', token);
+
+    if (token && req.method !== 'OPTIONS') {
       req = req.clone({
         setHeaders: {
-            'Content-type': 'application/json;charset=utf-8',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`
+          'Content-type': 'application/json;charset=utf-8',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
       });
-
     }
-      return next.handle(req);
+    return next.handle(req);
   }
-
-
 }

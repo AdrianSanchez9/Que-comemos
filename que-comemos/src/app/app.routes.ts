@@ -10,7 +10,13 @@ export const routes: Routes = [
   { 
     path: 'menu', 
     loadChildren: () => import('./features/articles/articles.routes').
-        then(m => m.MENU_ROUTES)
+        then(m => m.ARTICLES_ROUTES)
   },
+  { 
+    path: 'comida', 
+    loadChildren: () => import('./features/articles/articles.routes').
+        then(m => m.ARTICLES_ROUTES)
+  },
+  
 ];
 

@@ -3,7 +3,7 @@
     <form [formGroup]="menuForm">
         <div class="form-group">
           <label for="exampleFormControlInput1">Ingrese Nombre del Menu</label>
-          <input type="text" class="form-control"  >
+          <input type="text" class="form-control"  id="inputs-text" formControlName="nombre">
           <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger">
             <div *ngIf="nombre.hasError('required')"> Nombre Requerido. </div>
             <div *ngIf="nombre.hasError('pattern')"> No se permite Numeros ni caracteres Especiales. </div>

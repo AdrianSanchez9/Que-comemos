@@ -1,26 +1,25 @@
-<section>
-    <h2> Iniciar Sesión</h2>
-
-    <form [formGroup]="loginForm">
+<section class="login-container">
+    <div class="form-wrapper">
+      <h2>Iniciar Sesión</h2>
+      <form [formGroup]="loginForm" class="login-form">
         <p class="text-danger text-error">{{ loginError }}</p>
+  
         <div class="form-group">
-            <input type="number" class="form-control" formControlName="dni" id="exampleInputEmail1"
-                aria-describedby="emailHelp" placeholder="Ingrese su Dni">
-            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="text-danger">
-                <div *ngIf="dni.hasError('required')"> Dni Requerido. </div>
-            </div>
+          <input type="number" class="form-control" formControlName="dni" id="dni" placeholder="Ingrese su Dni">
+          <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="text-danger">
+            <div *ngIf="dni.hasError('required')"> Dni Requerido. </div>
+          </div>
         </div>
+  
         <div class="form-group">
-            <input type="password" class="form-control" formControlName="clave" id="exampleInputPassword1"
-                placeholder="Ingrese su clave">
-            <div *ngIf="clave.invalid && (clave.dirty || clave.touched)" class="text-danger">
-                <div *ngIf="clave.hasError('required')"> Clave Requerido. </div>
-            </div>
+          <input type="password" class="form-control" formControlName="clave" id="clave" placeholder="Ingrese su clave">
+          <div *ngIf="clave.invalid && (clave.dirty || clave.touched)" class="text-danger">
+            <div *ngIf="clave.hasError('required')"> Clave Requerida. </div>
+          </div>
         </div>
-
-
-        <button type="submit" class="btn btn-primary" (click)="login()">Iniciar Sesion</button>
-    </form>
-
-
-</section>
+  
+        <button type="submit" class="btn btn-primary" (click)="login()">Iniciar Sesión</button>
+      </form>
+    </div>
+  </section>
+  
