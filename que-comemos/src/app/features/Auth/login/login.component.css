@@ -1,4 +1,6 @@
-
+section {
+    height: 100vh;
+}
 
 .ng-invalid:not(form).ng-touched{
     border-left: 3px solid red;

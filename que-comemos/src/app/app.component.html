@@ -1,2 +1,6 @@
-<app-nav-bar></app-nav-bar>
-<router-outlet></router-outlet>
+
+<div class="main-container">
+    <app-nav-bar (emitToggleSidenav)="onToggleEvent()"></app-nav-bar>
+    <app-sidebar [displaySidebar]="displaySidebar"></app-sidebar>
+    <router-outlet></router-outlet>
+</div>
