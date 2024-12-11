@@ -4,18 +4,17 @@
     <form [formGroup]="loginForm">
         <p class="text-danger text-error">{{ loginError }}</p>
         <div class="form-group">
-            <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1"
-                aria-describedby="emailHelp" placeholder="Ingrese su Email">
-            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-                <div *ngIf="email.hasError('required')"> Email Requerido. </div>
-                <div *ngIf="email.hasError('email')"> Debe ser formato Email. </div>
+            <input type="number" class="form-control" formControlName="dni" id="exampleInputEmail1"
+                aria-describedby="emailHelp" placeholder="Ingrese su Dni">
+            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="text-danger">
+                <div *ngIf="dni.hasError('required')"> Dni Requerido. </div>
             </div>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1"
-                placeholder="Ingrese su contraseña">
-            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
-                <div *ngIf="password.hasError('required')"> Contraseña Requerido. </div>
+            <input type="password" class="form-control" formControlName="clave" id="exampleInputPassword1"
+                placeholder="Ingrese su clave">
+            <div *ngIf="clave.invalid && (clave.dirty || clave.touched)" class="text-danger">
+                <div *ngIf="clave.hasError('required')"> Clave Requerido. </div>
             </div>
         </div>
 

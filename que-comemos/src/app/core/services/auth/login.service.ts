@@ -9,6 +9,8 @@ import { User } from './user';
 })
 export class LoginService {
 
+  URL = 'http://localhost:8080/login';
+
   currentUserLoginOn : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUserData : BehaviorSubject<String> = new BehaviorSubject<String>("");
 
@@ -19,7 +21,7 @@ export class LoginService {
   }
 
   login (credentials:LoginRequest):Observable<any> {
-    return this.http.post<any>('https://6a833d62-ab1b-4658-9051-66aae114a57f.mock.pstmn.io/login', credentials).pipe(
+    return this.http.post<any>(this.URL, credentials).pipe(
       tap((userData) => {
         sessionStorage.setItem("tokenUser", userData.token);
         this.currentUserLoginOn.next(true);
@@ -31,14 +33,15 @@ export class LoginService {
   }
 
 
-  private handleError (error: HttpErrorResponse) {
-    if (error.status==0){
-      console.error("Se produjo un error " , error.error);
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error("Se produjo un error:", error.error);
+    } else {
+      console.error("Se retornó código", error.status, "con mensaje:", error.error.message || error.error);
     }
-    else {
-       console.log ("Se retorno codigo" , error.status , error.error)
-    }
-    return throwError( () => new Error("Error"));
+  
+    const errorMessage = error.error?.message || "Ocurrió un error inesperado";
+    return throwError(() => new Error(errorMessage));
   }
 
   logout ():void {
@@ -53,5 +56,9 @@ export class LoginService {
 
   get userLogin (): Observable<any>{
     return this.currentUserLoginOn.asObservable();
+  }
+
+  get userToken () :String {
+    return this.currentUserData.value;
   }
 }

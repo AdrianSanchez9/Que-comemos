@@ -19,18 +19,18 @@ export class LoginComponent {
   private formBuilder = inject(FormBuilder);
 
    loginForm =  this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      dni: ['', [Validators.required]],
+      clave: ['', [Validators.required]]
     }); 
 
   constructor (private router: Router, private loginService: LoginService) {}
 
-  get email () {
-    return this.loginForm.controls.email;
+  get dni () {
+    return this.loginForm.controls.dni;
   }
   
-  get password () {
-    return this.loginForm.controls.password;
+  get clave () {
+    return this.loginForm.controls.clave;
   }
     
   login (){
@@ -40,8 +40,7 @@ export class LoginComponent {
           console.log(response);
         },
         error: (error) => {
-          this.loginError = error;
-          console.error(error);
+          this.loginError = error || 'Error desconocido. Intente nuevamente.';
         },
         complete: () => {
           console.info('Complete');
