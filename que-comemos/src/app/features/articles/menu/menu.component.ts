@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
   menuError : string = "";
 
   idMenu! : number;
-  isModeEdit : boolean = false;
+  isModeEdit : boolean = true;
 
   private formBuilder = inject(FormBuilder);
   private _snackBar = inject(MatSnackBar);
@@ -66,7 +66,7 @@ export class MenuComponent implements OnInit {
     // Llamo al servicio para obtener todos los datos del menu.
     this.menuService.getMenuById(this.idMenu!).subscribe({
       next: (response) => {
-        console.log(response);
+        console.log("res" , response);
         this.menuForm.patchValue({
           nombre : response.nombre,
           precio : response.precio,

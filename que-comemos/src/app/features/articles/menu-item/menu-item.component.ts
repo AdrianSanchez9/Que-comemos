@@ -74,9 +74,13 @@ export class MenuItemComponent implements OnInit {
     this.menuItemService.getComidasAsociadasAMenu(idMenu).subscribe({
       next: (response) => {
         this.idsComidasAsociadas = response.map((item: MenuItemResponse) => item.id);
-        
-        this.seleccionados = this.idsComidasAsociadas;
 
+        this.seleccionados[0] = response.find((item: MenuItemResponse) => item.tipo === 'ENTRADA')!.id;
+        this.seleccionados[1] = response.find((item: MenuItemResponse) => item.tipo === 'PLATO_PRINCIPAL')!.id;
+        this.seleccionados[2] = response.find((item: MenuItemResponse) => item.tipo === 'POSTRE')!.id;
+        this.seleccionados[3] = response.find((item: MenuItemResponse) => item.tipo === 'BEBIDA')!.id;
+        console.log ("Metodos " , this.seleccionados);
+        
         this.idsComidasSeleccionas.emit(this.seleccionados);
       },
       error: (error) => {
@@ -93,10 +97,21 @@ export class MenuItemComponent implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
 
+    console.log ("Antes");
+    
+    console.log("Posicion 0", this.seleccionados[0]);
+    console.log("Posicion 1", this.seleccionados[1]);
+    console.log("Posicion 2", this.seleccionados[2]);
+    console.log("Posicion 3", this.seleccionados[3]);
+
     const [id, index] = selectedValue.split('-').map(Number);
     if (!isNaN(id)) {
       this.seleccionados[index] = id;
-       this.idsComidasSeleccionas.emit(this.seleccionados);
+      console.log("Posicion 0", this.seleccionados[0]);
+      console.log("Posicion 1", this.seleccionados[1]);
+      console.log("Posicion 2", this.seleccionados[2]);
+      console.log("Posicion 3", this.seleccionados[3]);
+      this.idsComidasSeleccionas.emit(this.seleccionados);
     }
 
   }
