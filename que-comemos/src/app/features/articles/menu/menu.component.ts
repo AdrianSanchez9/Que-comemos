@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
   menuError : string = "";
 
   idMenu! : number;
-  isModeEdit : boolean = true;
+  isModeEdit : boolean = false;
 
   private formBuilder = inject(FormBuilder);
   private _snackBar = inject(MatSnackBar);
