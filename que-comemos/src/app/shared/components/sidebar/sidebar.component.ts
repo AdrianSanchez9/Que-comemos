@@ -35,7 +35,7 @@ export class SidebarComponent implements OnInit{
 
   logout () {
     this.loginService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
 

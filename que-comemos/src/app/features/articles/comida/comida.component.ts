@@ -3,7 +3,7 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ComidaServiceService } from '../../../core/services/articles/comida-service.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-comida',
@@ -20,6 +20,7 @@ export class ComidaComponent {
   isModeEdit : boolean = false;
 
   private formBuilder = inject(FormBuilder);
+  private _snackBar = inject(MatSnackBar);
 
   constructor (private comidaService : ComidaServiceService , private router: Router) { }
 
@@ -42,6 +43,7 @@ export class ComidaComponent {
         complete: () => {
           console.info('Complete');
           this.router.navigate(['/']);
+          this.openSnackBar('Se registro la comida Correctamente.');
           this.comidaForm.reset();
         }
       });
@@ -51,6 +53,14 @@ export class ComidaComponent {
     }    
   }
 
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Cerrar", {
+      horizontalPosition: "center",
+      verticalPosition: "top",
+      duration: 6000,
+    });
+  }
 
   
   get nombre () {

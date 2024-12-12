@@ -6,7 +6,7 @@ import { MenuRequest } from '../../../core/services/articles/menuRequest';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { ActivatedRoute, ParamMap ,Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-menu',
   imports: [
@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
   isModeEdit : boolean = false;
 
   private formBuilder = inject(FormBuilder);
+  private _snackBar = inject(MatSnackBar);
 
   menuForm = this.formBuilder.group({
     nombre: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
@@ -87,6 +88,7 @@ export class MenuComponent implements OnInit {
       complete: () => {
         console.info('Complete');
         this.router.navigate(['/']);
+        this.openSnackBar('Se registro el menú Correctamente.');
         this.menuForm.reset();
       }
     });
@@ -131,6 +133,15 @@ export class MenuComponent implements OnInit {
   validarTodasComidas() : boolean {
     const comidasArray = this.menuForm.get('comidas') as FormArray;
     return comidasArray.length == 4;
+  }
+
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Cerrar", {
+      horizontalPosition: "center",
+      verticalPosition: "top",
+      duration: 6000,
+    });
   }
 
 }

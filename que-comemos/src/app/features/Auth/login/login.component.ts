@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../core/services/auth/login.service';
 import { LoginRequest } from '../../../core/services/auth/loginRequest';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent {
   loginError : string = "";
 
   private formBuilder = inject(FormBuilder);
+  private _snackBar = inject(MatSnackBar);
 
    loginForm =  this.formBuilder.group({
       dni: ['', [Validators.required]],
@@ -44,6 +46,7 @@ export class LoginComponent {
         complete: () => {
           console.info('Complete');
           this.router.navigate(['/']);
+          this.openSnackBar('Inicio Sesión Correctamente.');
           this.loginForm.reset();
         }
       })
@@ -55,6 +58,13 @@ export class LoginComponent {
   }
 
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Cerrar", {
+      horizontalPosition: "center",
+      verticalPosition: "top",
+      duration: 6000,
+    });
+  }
 
 
 }
