@@ -13,26 +13,24 @@
     justify-content: center;
 }
 
+h2 {
+    margin-bottom: 20px; 
+}
+
 form {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 16px; /* Reduce el espacio general entre los elementos */
 }
 
-/* Estilo para los campos de entrada */
-#inputs-text {
-    margin: 15px 0;
-    width: 80%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+.mat-form-field {
+    width: 80%; /* Ajusta el ancho de los inputs */
 }
 
-/* Botón de submit */
 #input-submit {
-    margin-top: 20px;
+    margin-top: 10px; /* Reduce el espacio superior del botón */
     padding: 10px 20px;
     background-color: #17a2b8;
     color: white;
@@ -47,7 +45,6 @@ form {
     background-color: #138496;
 }
 
-/* Fondo general */
 body {
     background: #f9f9f9;
     margin: 0;
@@ -58,7 +55,3 @@ body {
     font-family: Arial, sans-serif;
 }
 
-
-select {
-    width: 30%;
-}

@@ -4,9 +4,18 @@ import { CommonModule } from '@angular/common';
 import { MenuItemResponse } from '../../../core/services/articles/menuItemResponse';
 import { Validators,FormBuilder  } from '@angular/forms';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectChange } from '@angular/material/select';
+
+
 @Component({
   selector: 'app-menu-item',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,MatSelectModule,MatOptionModule
+  ],
   templateUrl: './menu-item.component.html',
   styleUrl: './menu-item.component.css'
 })
@@ -80,18 +89,17 @@ export class MenuItemComponent implements OnInit {
   }
 
    // Se van guardando los id de las comidas seleccionadas y es emitido.
-   numeroSeleccionado(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedValue = selectElement.value;
+   numeroSeleccionado(event: MatSelectChange): void {
+    const selectedValue = event.value; // Valor seleccionado (formato "id-index")
   
-    const [id, index] = selectedValue.split('-').map(Number);
-
+    const [id, index] = selectedValue.split('-').map(Number); // Divide y convierte a números
+  
     if (!isNaN(id)) {
-      this.seleccionados[index] = id; 
-      this.idsComidasSeleccionas.emit(this.seleccionados);
+      this.seleccionados[index] = id; // Actualiza la selección según el índice
+      this.idsComidasSeleccionas.emit(this.seleccionados); // Emite los valores seleccionados
     }
-    
   }
+  
 
   
 

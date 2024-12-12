@@ -5,11 +5,17 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+
 @Component({
   selector: 'app-comida',
   imports: [ 
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    MatFormFieldModule, MatSelectModule, MatInputModule
   ],
   templateUrl: './comida.component.html',
   styleUrl: './comida.component.css'

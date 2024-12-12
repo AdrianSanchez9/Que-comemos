@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../../core/services/auth/login.service';
 import { LoginRequest } from '../../../core/services/auth/loginRequest';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,MatButtonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

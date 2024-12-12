@@ -93,3 +93,11 @@
     border-left: 3px solid green;
   }
   
+
+  .ng-invalid:not(form).ng-touched{
+    border-left: 3px solid red;
+  }
+  
+  .ng-valid:not(form).ng-touched{
+      border-left: 3px solid green;
+    }

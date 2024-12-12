@@ -7,12 +7,19 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { ActivatedRoute, ParamMap ,Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 @Component({
   selector: 'app-menu',
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    MenuItemComponent
+    MenuItemComponent,
+    MatFormFieldModule, MatSelectModule, MatInputModule, MatRadioModule
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'

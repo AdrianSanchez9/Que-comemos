@@ -1,44 +1,50 @@
 <div class="default-container">
-    
-    <h2>{{ isModeEdit ? 'Editar Comida' : 'Registrar Comida' }}</h2>
 
-    <form [formGroup]="comidaForm">
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Ingrese Nombre de la Comida</label>
-          <input type="text" class="form-control" id="inputs-text" formControlName="nombre">
-          <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger">
-            <div *ngIf="nombre.hasError('required')"> Nombre Requerido. </div>
-            <div *ngIf="nombre.hasError('pattern')"> No se permite Numeros ni caracteres Especiales. </div>
-          </div>
-        </div>
+  <h2>{{ isModeEdit ? 'Editar Comida' : 'Registrar Comida' }}</h2>
 
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Ingrese Precio de la Comida</label>
-            <input type="number" class="form-control" id="inputs-text" formControlName="precio">
-            <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="text-danger">
-                <div *ngIf="precio.hasError('required')"> Precio Requerido. </div>
-              </div>
-        </div>
+  <form [formGroup]="comidaForm">
+    <!-- Input para Nombre de la Comida -->
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre de la comida</mat-label>
+      <input matInput placeholder="Nombre de la comida" formControlName="nombre" id="nombre-input">
+      <mat-error *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+        <span *ngIf="nombre.hasError('required')">Nombre Requerido.</span>
+        <span *ngIf="nombre.hasError('pattern')">No se permite números ni caracteres especiales.</span>
+      </mat-error>
+    </mat-form-field>
 
-        <h5> Seleccione el tipo de Comida: </h5>
-        <select class="form-select" formControlName="tipo" aria-label="Seleccione el tipo de comida">
-          <option value="" disabled selected>Elija tipo</option>
-          <option value="ENTRADA">Entrada</option>
-          <option value="PLATO_PRINCIPAL">Plato Principal</option>
-          <option value="POSTRE">Postre</option>
-          <option value="BEBIDA">Bebida</option>
-          <option value="OTRO">Otro</option>
-        </select>
-        <div *ngIf="tipo.invalid && (tipo.dirty || tipo.touched)" class="text-danger">
-          <div *ngIf="tipo.hasError('required')"> Tipo de comida requerido. </div>
-        </div>
+    <!-- Input para Precio de la Comida -->
+    <mat-form-field appearance="fill">
+      <mat-label>Precio de la Comida</mat-label>
+      <input matInput type="number" placeholder="Precio de la comida" formControlName="precio" id="precio-input">
+      <mat-error *ngIf="precio.invalid && (precio.dirty || precio.touched)">
+        <span *ngIf="precio.hasError('required')">Precio Requerido.</span>
+      </mat-error>
+    </mat-form-field>
 
-       
-          <p class="text-danger text-error">{{ comidaError }}</p>
+    <h5>Selecciona el tipo de comida</h5>
+    <mat-form-field appearance="fill">
+      <mat-label>Seleccione el tipo de comida</mat-label>
+      <mat-select formControlName="tipo" aria-label="Seleccione el tipo de comida">
+        <mat-option value="" disabled>Elija tipo</mat-option>
+        <mat-option value="ENTRADA">Entrada</mat-option>
+        <mat-option value="PLATO_PRINCIPAL">Plato Principal</mat-option>
+        <mat-option value="POSTRE">Postre</mat-option>
+        <mat-option value="BEBIDA">Bebida</mat-option>
+        <mat-option value="OTRO">Otro</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-          <button type="submit" class="btn btn-primary" id="input-submit" (click)="registrarNuevaComida()"> Registrar Comida </button>
-          
-      </form>
+    <div *ngIf="tipo.invalid && (tipo.dirty || tipo.touched)" class="text-danger">
+      <div *ngIf="tipo.hasError('required')">Tipo de comida requerido.</div>
+    </div>
+
+    <p class="text-danger text-error">{{ comidaError }}</p>
+
+    <button type="submit" class="btn btn-primary" id="input-submit" (click)="registrarNuevaComida()">
+      Registrar Comida
+    </button>
 
 
+  </form>
 </div>

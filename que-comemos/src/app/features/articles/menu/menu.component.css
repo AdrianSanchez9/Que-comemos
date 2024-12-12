@@ -57,3 +57,7 @@ body {
     min-height: 100vh;
     font-family: Arial, sans-serif;
 }
+
+h2 {
+    margin-bottom: 30px;
+}
