@@ -4,13 +4,16 @@ import { provideHttpClient, HTTP_INTERCEPTORS, withInterceptors } from '@angular
 import { errorInterceptor } from './core/interceptors/errorInterceptor';
 import { jwtInterceptor } from './core/interceptors/jwtInterceptor';
 import { routes } from './app.routes';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [ 
     provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([jwtInterceptor]), 
-    ),
+    provideHttpClient(withInterceptors([jwtInterceptor])), 
+    provideAnimationsAsync(), 
+    provideAnimationsAsync(), 
+    provideZoneChangeDetection(),
+    
   ] 
     
 };

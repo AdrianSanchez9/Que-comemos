@@ -1,0 +1,23 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+.example-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.example-container button{
+  margin: 10px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit; /* Mantiene el color actual del tema */
+  transition: color 0.3s ease;
+}
+
+.title:hover {
+  color: #3f51b5; /* Cambia a un color destacado al pasar el mouse */
+}

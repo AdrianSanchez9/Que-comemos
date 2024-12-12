@@ -1,0 +1,36 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" [opened]="displaySidebar" class="sidebar">
+            <ul class="sidebar-links">
+               
+
+
+                <h4>
+                    <div class="menu-separator"></div>
+                    <span>Cuenta</span>
+                </h4>
+                <li>
+                    <button *ngIf="!userLogin" routerLink="/auth/login">Iniciar Sesión</button>
+                </li>
+                <li>
+                    <button *ngIf="!userLogin" routerLink="/registro/registro_cliente">Registrarse</button>
+                </li>
+                <li>
+                    <button *ngIf="userLogin" routerLink="/menu/registrar">Agregar Menu</button>
+                </li>
+                <li>
+                    <button *ngIf="userLogin" routerLink="/comida/crear">Agregar Comida</button>
+                </li>
+                <li>
+                    <button *ngIf="userLogin" routerLink=""><span class="material-symbols-outlined"> account_circle </span>Perfil</button>
+                </li>
+                <li>
+                    <button *ngIf="userLogin" (click)="logout()"><span class="material-symbols-outlined"> logout </span>Cerrar Sesión</button>
+                </li>
+                </ul>
+                  
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+  

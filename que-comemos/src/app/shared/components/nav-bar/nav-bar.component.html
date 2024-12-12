@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">¿Qué Comemos?</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,4 +15,15 @@
         </div>
       </div>
     </div>
-</nav>
+</nav> -->
+<mat-toolbar>
+  <button mat-icon-button (click)="emitToggleEvent()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="title" routerLink="/" style="cursor: pointer;">
+    ¿Qué Comemos?
+  </span>
+  <span class="example-spacer"></span>
+  
+
+</mat-toolbar>

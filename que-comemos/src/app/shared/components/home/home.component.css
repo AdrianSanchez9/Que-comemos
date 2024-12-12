@@ -1,0 +1,35 @@
+.home-container {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%; /* Ocupa todo el ancho de la pantalla */
+    
+    height: 100vh; /* Define una altura de la mitad de la ventana del navegador */
+   
+  }
+
+  .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 100%;
+    background-image: url('https://biblioteca.info.unlp.edu.ar/uploads/assets/alumnos_2014_03_medium.png');
+    background-size: cover; /* Hace que la imagen ocupe todo el contenedor */
+    background-repeat: no-repeat; /* Evita que se repita */
+    background-position: center; /* Centra la imagen */
+  }
+  
+  .home-container h1 {
+    font-size: 2.5rem;
+    color: #ffffff; /* Color blanco para resaltar sobre la imagen */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Sombra para mejor legibilidad */
+  }
+  
+  .home-container p {
+    font-size: 1.2rem;
+    color: #f0f0f0; /* Un gris claro para complementar */
+    margin: 20px 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para texto */
+  }
+  

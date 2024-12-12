@@ -1,12 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../../core/services/auth/login.service';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { LoginService } from '../../../core/services/auth/login.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [ CommonModule, RouterModule ],
+  standalone: true,
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    RouterModule,
+    CommonModule
+  ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
@@ -28,4 +38,9 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  @Output() emitToggleSidenav: EventEmitter<void> = new EventEmitter();
+
+  emitToggleEvent(): void {
+    this.emitToggleSidenav.emit();
+  }
 }
