@@ -1,0 +1,32 @@
+<div class="container py-5">
+    <h1 class="text-center mb-4">Listado de Menús</h1>
+
+    
+    <div *ngIf="menus.length === 0" class="alert alert-warning text-center">
+        No hay menús disponibles.
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="col" *ngFor="let menu of menus">
+        <div class="card h-100 shadow-sm">
+          <div class="card-header">
+            <h5 class="card-title mb-0">{{ menu.nombre }}</h5>
+            <small class="d-block">Tipo: {{ menu.tipoMenu }}</small>
+            <small class="d-block">Precio: ${{ menu.precio }}</small>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Entrada:</strong> {{ menu.comidas[0].nombre }}</li>
+              <li class="list-group-item"><strong>Plato Principal:</strong> {{ menu.comidas[1].nombre }}</li>
+              <li class="list-group-item"><strong>Postre:</strong> {{ menu.comidas[2].nombre }}</li>
+              <li class="list-group-item"><strong>Bebida:</strong> {{ menu.comidas[3].nombre }}</li>
+            </ul>
+            <div class="mt-3 text-end">
+              <button mat-raised-button color="primary" (click)="editarMenu(menu.id)">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

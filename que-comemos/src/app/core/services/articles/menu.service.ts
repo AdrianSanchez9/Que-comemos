@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError,catchError } from 'rxjs';
 import { MenuRequest } from './menuRequest';
-
+import { environment } from '../../../../environments/environment';
+import { Menu } from '../../models/menu-interface';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
 
   URL = 'http://localhost:8080/menu/';
+  apiURL = environment.apiUrl + '/menu/';
 
   constructor(private http : HttpClient) { }
 
@@ -30,6 +33,12 @@ export class MenuService {
   getMenuById (id:number){
     const UrlGetMenu = `${this.URL}${id}`;
     return this.http.get<any>(UrlGetMenu).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getMenus(): Observable<Menu[]> {
+    return this.http.get<Menu[]>(this.apiURL).pipe(
       catchError(this.handleError)
     );
   }

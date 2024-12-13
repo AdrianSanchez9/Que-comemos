@@ -94,7 +94,7 @@ export class MenuComponent implements OnInit {
       },
       complete: () => {
         console.info('Complete');
-        this.router.navigate(['/']);
+        this.router.navigate(['/list/menus']);
         this.openSnackBar('Se registro el menú Correctamente.');
         this.menuForm.reset();
       }
