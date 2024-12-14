@@ -75,7 +75,7 @@ export class RegistroClienteComponent {
     Object.keys(this.registerForm.controls).forEach((field) => {
       const control = this.registerForm.get(field);
       if (control) {
-        control.markAsTouched({ onlySelf: true }); // Marca los campos como "tocados"
+        control.markAsTouched({ onlySelf: true });
       }
     });
   }
