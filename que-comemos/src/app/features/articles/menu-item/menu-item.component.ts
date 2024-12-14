@@ -60,6 +60,8 @@ export class MenuItemComponent implements OnInit {
         this.platoPrincipal = response.filter((item: MenuItemResponse) => item.tipo === 'PLATO_PRINCIPAL');
         this.bebida = response.filter((item: MenuItemResponse) => item.tipo === 'BEBIDA');
         this.postre = response.filter((item: MenuItemResponse) => item.tipo === 'POSTRE');
+
+        console.log (response);
       },
       error: (error) => {
         console.error(error);
@@ -79,7 +81,6 @@ export class MenuItemComponent implements OnInit {
         this.seleccionados[1] = response.find((item: MenuItemResponse) => item.tipo === 'PLATO_PRINCIPAL')!.id;
         this.seleccionados[2] = response.find((item: MenuItemResponse) => item.tipo === 'POSTRE')!.id;
         this.seleccionados[3] = response.find((item: MenuItemResponse) => item.tipo === 'BEBIDA')!.id;
-        console.log ("Metodos " , this.seleccionados);
         
         this.idsComidasSeleccionas.emit(this.seleccionados);
       },
@@ -92,25 +93,16 @@ export class MenuItemComponent implements OnInit {
     });
   }
 
-  // Se van guardando los id de las comidas seleccionadas y es emitido.
+  // Se van guardando los id de las comidas seleccionadas y se emite
   numeroSeleccionado(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
 
     console.log ("Antes");
-    
-    console.log("Posicion 0", this.seleccionados[0]);
-    console.log("Posicion 1", this.seleccionados[1]);
-    console.log("Posicion 2", this.seleccionados[2]);
-    console.log("Posicion 3", this.seleccionados[3]);
 
     const [id, index] = selectedValue.split('-').map(Number);
     if (!isNaN(id)) {
       this.seleccionados[index] = id;
-      console.log("Posicion 0", this.seleccionados[0]);
-      console.log("Posicion 1", this.seleccionados[1]);
-      console.log("Posicion 2", this.seleccionados[2]);
-      console.log("Posicion 3", this.seleccionados[3]);
       this.idsComidasSeleccionas.emit(this.seleccionados);
     }
 

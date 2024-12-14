@@ -1,0 +1,46 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    height: 100%; 
+    position: fixed;
+  }
+  
+  .main-content {
+    margin-left: 250px; 
+    padding: 20px;
+    flex: 1;
+  }
+
+
+
+  .card-header {
+    background-color: #505355;
+    color: #f8f9fa;
+  }
+
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 20px rgba(205, 202, 202, 0.2);
+  }
+
+  .card-body {
+    background-color: #f8f9fa;
+  }
+
+
+.text-end{
+  margin: 10px;
+}
