@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, importProvidersFrom, inject, signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, importProvidersFrom, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistroService } from '../../../core/services/registro/registro.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,11 +38,11 @@ export class RegistroClienteComponent {
   isSubmitting = false;
   private _snackBar = inject(MatSnackBar);
 
-  constructor(private fb: FormBuilder, private registroService: RegistroService, private cdr: ChangeDetectorRef , private router: Router) {
+  constructor(private fb: FormBuilder, private registroService: RegistroService, private cdr: ChangeDetectorRef, private router: Router) {
     this.registerForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(16), Validators.pattern(/^[a-zA-Z\s]*$/)]],
       apellido: ['', [Validators.required, Validators.maxLength(16), Validators.pattern(/^[a-zA-Z\s]*$/)]],
-      dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/),Validators.maxLength(8)]],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/), Validators.maxLength(8)]],
       email: ['', [Validators.required, Validators.email]],
       clave: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8)]]
     });
@@ -79,42 +79,65 @@ export class RegistroClienteComponent {
       }
     });
   }
-  
+
 
   onSubmit() {
     this.isSubmitting = true;
     this.validateForm();
+
     if (this.registerForm.valid) {
-      console.log (this.registerForm.value);
-      const formData = new FormData();
-      formData.append('nombre', this.registerForm.value.nombre);
-      formData.append('apellido', this.registerForm.value.apellido);
-      formData.append('dni', this.registerForm.value.dni);
-      formData.append('email', this.registerForm.value.email);
-      formData.append('clave', this.registerForm.value.clave);
       if (this.selectedFile) {
+        // para foto
+        const formData = new FormData();
+        formData.append('nombre', this.registerForm.value.nombre);
+        formData.append('apellido', this.registerForm.value.apellido);
+        formData.append('dni', this.registerForm.value.dni);
+        formData.append('email', this.registerForm.value.email);
+        formData.append('clave', this.registerForm.value.clave);
         formData.append('foto', this.selectedFile, this.selectedFile.name);
+
+        this.sendRequestMultipart(formData);
+      } else {
+        const usuarioData = this.registerForm.value;
+        this.sendRequestJson(usuarioData);
       }
-      this.sendRequest(formData);
     }
   }
+
   
-  private sendRequest(formData: FormData) {
-    this.registroService.register(formData).subscribe(
-      (response) => {
-        this.isSubmitting = false;
-        this.cdr.detectChanges();   // Forzar la detección de cambios
-        this.router.navigate(['/auth/login']);
-        this.openSnackBar('Registro exitoso! Por favor, inicia sesión.');
-      },
-      (error) => {
-        this.isSubmitting = false;
-        this.cdr.detectChanges();   // Forzar la detección de cambios
-        this.openSnackBar(error.error.message);
-      }
-    );
-  }
+
   
+private sendRequest(data: any, isMultipart: boolean) {
+  this.isSubmitting = true;
+  this.cdr.detectChanges();
+
+  const requestObservable = isMultipart
+    ? this.registroService.registerMultipart(data)
+    : this.registroService.registerJson(data);
+
+  requestObservable.subscribe(
+    (response) => {
+      this.isSubmitting = false;
+      this.cdr.detectChanges();
+      this.router.navigate(['/auth/login']);
+      this.openSnackBar('Registro exitoso! Por favor, inicia sesión.');
+    },
+    (error) => {
+      this.isSubmitting = false;
+      this.cdr.detectChanges();
+      this.openSnackBar(error.error.message);
+    }
+  );
+}
+
+private sendRequestMultipart(formData: FormData) {
+  this.sendRequest(formData, true); 
+}
+
+private sendRequestJson(usuarioData: any) {
+  this.sendRequest(usuarioData, false); 
+}
+
 
   getErrorMessage(controlName: string): string {
     const control = this.registerForm.get(controlName);
@@ -139,5 +162,5 @@ export class RegistroClienteComponent {
     }
     return '';
   }
-  
+
 }

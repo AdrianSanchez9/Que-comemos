@@ -13,8 +13,14 @@ export class RegistroService {
 
     constructor(private http: HttpClient) { }
 
-    register(formData: FormData): Observable<any> {
-        return this.http.post<any>(this.apiUrl, formData);
+    registerMultipart(formData: FormData): Observable<any> {
+        return this.http.post(`${this.apiUrl}/multipart`, formData);
+      
+    }
+    
+    registerJson(usuarioData: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/json`, usuarioData);
+
     }
 }
   
