@@ -24,6 +24,11 @@ export const routes: Routes = [
     loadChildren: () => import('./features/articles/articles.routes').
         then(m => m.ARTICLES_ROUTES)
   },
+  { 
+    path: 'list', 
+    loadChildren: () => import('./features/listadoMenu/list.routes').
+        then(m => m.LIST_ROUTES)
+  },
   
 ];
 

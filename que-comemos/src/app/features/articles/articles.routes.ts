@@ -8,6 +8,6 @@ import { ComidaComponent } from './comida/comida.component';
 export const ARTICLES_ROUTES: Routes = [
     { path: 'registrar' , component: MenuComponent, canActivate: [authGuardGuard] },
     { path: 'editar/:id' , component: MenuComponent, canActivate: [authGuardGuard]},
-    { path: 'crear' , component: ComidaComponent ,canActivate: [authGuardGuard]}
-    //{ path: 'ver' , component: MenuItemComponent }
+    { path: 'crear' , component: ComidaComponent ,canActivate: [authGuardGuard]},
+    { path: 'editar-comida/:id' , component: ComidaComponent ,canActivate: [authGuardGuard]}
 ];

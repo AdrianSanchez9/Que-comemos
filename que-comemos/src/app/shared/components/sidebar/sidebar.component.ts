@@ -1,10 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input ,inject, OnInit} from '@angular/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { RouterOutlet, RouterLink, RouterModule } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterModule, Router } from '@angular/router';
 import { LoginService } from '../../../core/services/auth/login.service';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,6 +22,8 @@ export class SidebarComponent implements OnInit{
 
   @Input({required: true}) displaySidebar!: boolean;
 
+  private _snackBar = inject(MatSnackBar);
+
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
@@ -33,9 +34,21 @@ export class SidebarComponent implements OnInit{
     });
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, "Cerrar", {
+      horizontalPosition: "center",
+      verticalPosition: "top",
+      duration: 6000,
+    });
+  }
+
   logout () {
-    this.loginService.logout();
-    this.router.navigate(['/']);
+    
+    setTimeout(() => {
+      this.loginService.logout();
+      this.router.navigate(['/auth/login']);
+      this.openSnackBar('Se cerró sesión correctamente.');
+    }, 300);  
   }
 
 

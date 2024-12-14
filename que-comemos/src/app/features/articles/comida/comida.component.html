@@ -31,7 +31,7 @@
         <mat-option value="PLATO_PRINCIPAL">Plato Principal</mat-option>
         <mat-option value="POSTRE">Postre</mat-option>
         <mat-option value="BEBIDA">Bebida</mat-option>
-        <mat-option value="OTRO">Otro</mat-option>
+        <mat-option value="OTRAS">Otro</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -41,7 +41,7 @@
 
     <p class="text-danger text-error">{{ comidaError }}</p>
 
-    <button type="submit" class="btn btn-primary" id="input-submit" (click)="registrarNuevaComida()">
+    <button type="submit" class="btn btn-primary" id="input-submit" (click)="sendComida()">
       Registrar Comida
     </button>
 

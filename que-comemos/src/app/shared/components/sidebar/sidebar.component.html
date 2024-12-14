@@ -21,6 +21,12 @@
                     <button *ngIf="userLogin" routerLink="/comida/crear">Agregar Comida</button>
                 </li>
                 <li>
+                    <button *ngIf="userLogin" routerLink="/list/menus">Lista Menús</button>
+                </li>
+                <li>
+                    <button *ngIf="userLogin" routerLink="/list/comidas">Lista Comidas</button>
+                </li>
+                <li>
                     <button *ngIf="userLogin" routerLink=""><span class="material-symbols-outlined"> account_circle </span>Perfil</button>
                 </li>
                 <li>
